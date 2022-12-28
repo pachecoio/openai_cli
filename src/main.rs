@@ -32,10 +32,21 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Err(err) => println!("{}", err)
             }
         },
-        CommandTypes::Image(cmd) => handlers::generate_image(
-            client,
-            &cmd.description
-        ).await,
+        CommandTypes::Image(cmd) => {
+            let res = handlers::generate_images(
+                client,
+                &cmd
+            ).await;
+            match res {
+                Ok(images) => {
+                    images.iter().for_each(|image| {
+                        stdout().write(image.as_bytes()).unwrap();
+                        stdout().write("\n\n".as_bytes()).unwrap();
+                    });
+                },
+                Err(err) => println!("{}", err)
+            }
+        },
     }
 
     Ok(())
