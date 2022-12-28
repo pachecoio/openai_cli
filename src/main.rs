@@ -27,6 +27,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             match res {
                 Ok(text) => {
                     stdout().write(text.as_bytes())?;
+                    stdout().write("\n\n".as_bytes())?;
                 },
                 Err(err) => println!("{}", err)
             }
