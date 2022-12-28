@@ -22,6 +22,9 @@ pub struct TextCommand {
     #[arg(short, long)]
     pub description: String,
 
+    #[arg(long)]
+    pub model: Option<String>,
+
     #[arg(short, long, default_missing_value = "0.0")]
     pub temperature: Option<f32>,
 

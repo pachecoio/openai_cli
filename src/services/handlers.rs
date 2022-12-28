@@ -13,6 +13,7 @@ const DEFAULT_TEXT_COMPLETION_MODEL: &str = "text-davinci-003";
 pub async fn generate_text(client: Client, cmd: &TextCommand) -> Result<String, ServiceError> {
     let payload = TextCompletionPayload::new(
         &cmd.description,
+        &cmd.model,
         cmd.temperature,
         cmd.max_tokens,
     );
@@ -80,9 +81,13 @@ pub struct TextCompletionPayload {
 }
 
 impl TextCompletionPayload {
-    pub fn new(prompt: &str, temperature: Option<f32>, max_tokens: Option<u32>) -> Self {
+    pub fn new(prompt: &str, model: &Option<String>, temperature: Option<f32>, max_tokens: Option<u32>) -> Self {
+        let m = match model {
+            Some(m) => m.clone(),
+            None => DEFAULT_TEXT_COMPLETION_MODEL.to_string()
+        };
         Self {
-            model: DEFAULT_TEXT_COMPLETION_MODEL.to_string(),
+            model: m,
             description: prompt.to_string(),
             temperature: temperature.unwrap_or(0.7),
             max_tokens: max_tokens.unwrap_or(100),
