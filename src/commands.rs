@@ -11,10 +11,10 @@ pub struct Args {
 #[derive(Debug, Subcommand)]
 pub enum CommandTypes {
     /// Text completion commands
-    Text(TextCommand),
+    GenerateText(TextCommand),
 
     /// Image generation commands
-    Image(ImageCommand),
+    GenerateImage(ImageCommand),
 }
 
 #[derive(Parser, Debug)]

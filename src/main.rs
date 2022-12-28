@@ -19,7 +19,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = client_builder();
 
     match args.commands {
-        CommandTypes::Text(cmd) => {
+        CommandTypes::GenerateText(cmd) => {
             let res = handlers::generate_text(
                 client,
                 &cmd
@@ -32,7 +32,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Err(err) => println!("{}", err)
             }
         },
-        CommandTypes::Image(cmd) => {
+        CommandTypes::GenerateImage(cmd) => {
             let res = handlers::generate_images(
                 client,
                 &cmd
